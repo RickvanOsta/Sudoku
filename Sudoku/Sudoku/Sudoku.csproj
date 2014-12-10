@@ -105,6 +105,12 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SudokuLibrary\SudokuLibrary.csproj">
+      <Project>{20ae3b98-927a-43ef-b6ef-96a1a0d75d7a}</Project>
+      <Name>SudokuLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
