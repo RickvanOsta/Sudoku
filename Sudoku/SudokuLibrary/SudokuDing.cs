@@ -28,6 +28,36 @@ namespace SudokuLibrary
             return i == 1;
         }
 
+        public bool hint(out short x, out short y, out short value)
+        {
+            int result;
+            game.hint(out x, out y, out value, out result);
+            return result == 1;
+        }
+
+        public bool isValid()
+        {
+            int result;
+            game.isValid(out result);
+            return result == 1;
+        }
+
+        public bool read()
+        {
+            int result;
+            game.read(out result);
+            return result == 1;
+        }
+
+        public bool set(short x, short y, short value)
+        {
+            int result;
+            game.set(x, y, value, out result);
+            return result == 1;
+        }
+
+
+
 
     }
 }
