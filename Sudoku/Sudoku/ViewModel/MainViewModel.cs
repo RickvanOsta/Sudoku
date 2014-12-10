@@ -1,4 +1,5 @@
 using GalaSoft.MvvmLight;
+using SudokuLibrary;
 
 namespace Sudoku.ViewModel
 {
@@ -19,9 +20,11 @@ namespace Sudoku.ViewModel
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
+        /// 
+        public SudokuDing e { get; set; }
+
         public MainViewModel()
         {
-           
         }
     }
 }

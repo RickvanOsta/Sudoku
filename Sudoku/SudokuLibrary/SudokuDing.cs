@@ -8,13 +8,13 @@ using System.Diagnostics;
 
 namespace SudokuLibrary
 {
-    public class Class1
+    public class SudokuDing
     {
 
 
         private IGame game;
 
-        public Class1()
+        public SudokuDing()
         {
             game = new Sudoku.Game();
         }
