@@ -1,8 +1,14 @@
 ﻿<Window x:Class="Sudoku.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="WollahSudoku" Height="500" Width="450">
+        Title="WollahSudoku" Height="500" Width="450"
+        DataContext="{Binding Main, Source={StaticResource Locator}}">
+    
     <Grid>
-        <DataGrid Width="450" Height="450" />
+        <DataGrid Width="450" Height="450" ItemsSource="{Binding MySudokuTable}"/>
+        
+        <Button Content="Set" Command="{Binding SetValues}" Width="50" Height="20" VerticalAlignment="Bottom" ></Button>
     </Grid>
+    
+    
 </Window>

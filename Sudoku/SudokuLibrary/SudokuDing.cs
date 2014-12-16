@@ -24,7 +24,7 @@ namespace SudokuLibrary
             int i;
             game.create();
             game.write(out i);
-            Debug.WriteLine("baab");
+            Debug.WriteLine(i);
             return i == 1;
         }
 
@@ -56,6 +56,10 @@ namespace SudokuLibrary
             return result == 1;
         }
 
+        public void get(short x, short y, out short value)
+        {
+            game.get(x, y, out value);
+        }
 
 
 
