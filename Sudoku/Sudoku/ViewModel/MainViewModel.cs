@@ -78,7 +78,11 @@ namespace Sudoku.ViewModel
                 {
                     short value = 0;
                     sudWrapper.get((short)x, (short)y, out value);
-                    dr["col" + y] = value;
+                    if (value != 0)
+                    {
+                        dr["col" + y] = value;
+                    }
+                    
                 }
                 dataTable.Rows.Add(dr);
             }
