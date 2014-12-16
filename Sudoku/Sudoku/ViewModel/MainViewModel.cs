@@ -36,9 +36,12 @@ namespace Sudoku.ViewModel
             sudWrapper = new SudokuDing();
             bool watisdeze = sudWrapper.CreateGameAndWrite();           
             SetValues = new RelayCommand(test);
+            bool aids = sudWrapper.set(6, 6, 2);
             MySudokuTable = GetBoard();
-            SudokuGrid = new ObservableCollection<ObservableCollection<SudokuViewModel>>();
-            FillGrid();
+            //SudokuGrid = new ObservableCollection<ObservableCollection<SudokuViewModel>>();
+            //FillGrid();
+            //MySudokuTable.Rows[6][6] = 420;
+
             Debug.WriteLine("niks");
         }
 

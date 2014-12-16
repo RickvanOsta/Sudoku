@@ -23,5 +23,7 @@ namespace Sudoku
         {
             InitializeComponent();
         }
+
+  
     } 
 }

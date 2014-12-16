@@ -3,15 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="WollahSudoku" Height="500" Width="450"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
-    
-    <Grid>
-        <DataGrid Width="450" Height="450" ItemsSource="{Binding MySudokuTable}" Margin="0,0,-8,19">
-            
-        </DataGrid>
 
+    <Grid>
+        <DataGrid Height="450" Width="366" ItemsSource="{Binding MySudokuTable}" Margin="0,0,0,19" FontSize="20" BorderThickness="8" ColumnWidth="30" Padding="40" HeadersVisibility="None" CanUserAddRows="False" CanUserDeleteRows="False"/>
+        
 
         <Button Content="Set" Command="{Binding SetValues}" Width="50" Height="20" VerticalAlignment="Bottom" ></Button>
     </Grid>
-    
-    
+
+
 </Window>
