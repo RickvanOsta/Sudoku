@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Windows.Input;
 using System.Data;
 using System;
+using System.ComponentModel;
 
 namespace Sudoku.ViewModel
 {
@@ -21,7 +22,7 @@ namespace Sudoku.ViewModel
     /// See http://www.galasoft.ch/mvvm
     /// </para>
     /// </summary>
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : ViewModelBase, INotifyPropertyChanged
     {
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
@@ -29,32 +30,99 @@ namespace Sudoku.ViewModel
         /// 
         public SudokuDing sudWrapper { get; set; }
         public DataTable MySudokuTable { get; set; }
+        public SudokuViewModel SudViewModel { get; set; }
+
+        
         
 
         public MainViewModel()
         {
             sudWrapper = new SudokuDing();
             bool watisdeze = sudWrapper.CreateGameAndWrite();           
-            SetValues = new RelayCommand(test);
+            SetValues = new RelayCommand(setValues);
+            GiveHint = new RelayCommand(giveHint);
             bool aids = sudWrapper.set(6, 6, 2);
             MySudokuTable = GetBoard();
+            SudViewModel = new SudokuViewModel();
             //SudokuGrid = new ObservableCollection<ObservableCollection<SudokuViewModel>>();
             //FillGrid();
             //MySudokuTable.Rows[6][6] = 420;
+            
 
             Debug.WriteLine("niks");
         }
 
-        private void test()
+        private void setValues()
         {
-            short x = 3;
-            short y = 4;
-            short val = 9;
-            bool werktdit = sudWrapper.set(x, y, val);
-            
-            //bool endezedan = sudWrapper.hint(out x, out y, out val);
-            //bool baab = sudWrapper.read();
-            Debug.WriteLine("nik2s");
+            if (SudViewModel.XCord.Equals("give") && SudViewModel.YCord.Equals("me") && SudViewModel.Value.Equals("cheats"))
+            {
+                cheatMode();
+            }
+            else
+            {
+                short x = Int16.Parse(SudViewModel.XCord);
+                short y = Int16.Parse(SudViewModel.YCord);
+                short val = Int16.Parse(SudViewModel.Value);
+
+                if (sudWrapper.set(y, x, val))
+                {
+                    if (sudWrapper.isValid())
+                    {
+                        MySudokuTable = GetBoard();
+                        RaisePropertyChanged("MySudokuTable");
+                    }
+                    else
+                    {
+                        bool p = sudWrapper.set(y, x, 0);
+                        MySudokuTable = GetBoard();
+                        RaisePropertyChanged("MySudokuTable");
+                    }
+                }
+                else
+                {
+
+                }
+            }
+        }
+
+        private void giveHint()
+        {
+            short x;
+            short y;
+            short val;
+
+            sudWrapper.hint(out x, out y, out val);
+            sudWrapper.set(x, y, val);
+            if (sudWrapper.isValid())
+            {
+                MySudokuTable = GetBoard();
+                RaisePropertyChanged("MySudokuTable");
+            }
+        }
+
+        private void cheatMode()
+        {
+            DataTable dataTable = new DataTable();
+
+            for (int i = 1; i <= 9; i++)
+            {
+                DataColumn dc = new DataColumn("col" + i);
+                dataTable.Columns.Add(dc);
+            }
+
+            for (Int16 x = 1; x <= 9; x++)
+            {
+                DataRow dr = dataTable.NewRow();
+                for (Int16 y = 1; y <= 9; y++)
+                {
+                    short value = 0;
+                    sudWrapper.get((short)x, (short)y, out value);
+                    if (value == 0)
+                    {
+                        giveHint();                        
+                    }
+                }                
+            }
         }
 
         //public ObservableCollection<SudokuViewModel> SudokuGrid;
@@ -81,38 +149,18 @@ namespace Sudoku.ViewModel
                     if (value != 0)
                     {
                         dr["col" + y] = value;
-                    }
-                    
+                    }                    
                 }
                 dataTable.Rows.Add(dr);
-            }
-            
+            }            
             return dataTable;
         }
 
        
 
-        private void FillGrid()
-        {
-            DataTable temp = GetBoard();
-
-            for (int x = 0; x < 9; x++)
-            {
-                SudokuGrid.Add(new ObservableCollection<SudokuViewModel>());
-                for (int y = 0; y < 9; y++)
-                {
-                    var obj = new SudokuViewModel()
-                    {
-                       Value = Int16.Parse((string)temp.Rows[y][x])
-                    };
-                    SudokuGrid[x].Add(obj);
-                    
-                }
-            }
-        }
-
         
 
         public ICommand SetValues { get; set; }
+        public ICommand GiveHint { get; set; }
     }
 }

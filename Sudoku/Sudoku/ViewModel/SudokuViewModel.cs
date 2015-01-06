@@ -12,10 +12,20 @@ namespace Sudoku.ViewModel
     public class SudokuViewModel : INotifyPropertyChanged
     {
 
-        public short Value
+        public string Value
         {
             get { return _unit.value; }
             set { _unit.value = value; OnPropertyChanged(); }
+        }
+        public string XCord
+        {
+            get { return _unit.xCord; }
+            set { _unit.xCord = value; OnPropertyChanged(); }
+        }
+        public string YCord
+        {
+            get { return _unit.yCord; }
+            set { _unit.yCord = value; OnPropertyChanged(); }
         }
 
         private SudokuUnit _unit;

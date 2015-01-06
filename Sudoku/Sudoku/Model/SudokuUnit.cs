@@ -9,7 +9,9 @@ namespace Sudoku.Model
     public class SudokuUnit
     {
 
-        public short value { get; set; }
+        public string value { get; set; }
+        public string xCord { get; set; }
+        public string yCord { get; set; }
 
 
 
