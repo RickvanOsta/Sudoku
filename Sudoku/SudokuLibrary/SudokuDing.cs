@@ -28,6 +28,18 @@ namespace SudokuLibrary
             return i == 1;
         }
 
+        public void create()
+        {
+            game.create();
+        }
+
+        public bool write()
+        {
+            int i;
+            game.write(out i);
+            return (i == 1);
+        }
+
         public bool hint(out short x, out short y, out short value)
         {
             int result;

@@ -41,12 +41,11 @@ namespace Sudoku.ViewModel
             bool watisdeze = sudWrapper.CreateGameAndWrite();           
             SetValues = new RelayCommand(setValues);
             GiveHint = new RelayCommand(giveHint);
-            bool aids = sudWrapper.set(6, 6, 2);
             MySudokuTable = GetBoard();
             SudViewModel = new SudokuViewModel();
             //SudokuGrid = new ObservableCollection<ObservableCollection<SudokuViewModel>>();
             //FillGrid();
-            //MySudokuTable.Rows[6][6] = 420;
+            //MySudokuTable.Rows[6][5] = 420;
             
 
             Debug.WriteLine("niks");
@@ -60,11 +59,11 @@ namespace Sudoku.ViewModel
             }
             else
             {
-                short x = Int16.Parse(SudViewModel.XCord);
-                short y = Int16.Parse(SudViewModel.YCord);
+                short x = Int16.Parse(SudViewModel.YCord);
+                short y = Int16.Parse(SudViewModel.XCord);
                 short val = Int16.Parse(SudViewModel.Value);
 
-                if (sudWrapper.set(y, x, val))
+                if (sudWrapper.set(x, y, val))
                 {
                     if (sudWrapper.isValid())
                     {
@@ -73,9 +72,9 @@ namespace Sudoku.ViewModel
                     }
                     else
                     {
-                        bool p = sudWrapper.set(y, x, 0);
+                        bool p = sudWrapper.set(x, y, 0);
                         MySudokuTable = GetBoard();
-                        RaisePropertyChanged("MySudokuTable");
+                        RaisePropertyChanged("MySudokuTable");                       
                     }
                 }
                 else
@@ -156,7 +155,7 @@ namespace Sudoku.ViewModel
             return dataTable;
         }
 
-       
+      
 
         
 

@@ -1,0 +1,143 @@
+﻿@model SudokuMVC.Models.Turn
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div>
+    <h4>MySudokuTable</h4>
+    <hr />
+    <dl class="dl-horizontal"></dl>
+</div>
+
+
+<h1>Lets Play!</h1>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        @{
+    SudokuMVC.Models.MySudokuTableModel game = (SudokuMVC.Models.MySudokuTableModel)ViewData["model"];
+
+    if (ViewData["error"] != null)
+    {
+        @ViewData["error"];
+            <br />
+    }
+    <table border="1">
+        <tr>
+            <td></td>
+            @for (int i = 1; i <= 9; i++)
+            {
+                <td width="25" align="center"><b>@i</b></td>
+
+            }
+        </tr>
+        @for (int i = 0; i < 9; i++)
+        {
+            <tr>
+                <td><b>@(i + 1)</b></td>
+                @for (int y = 0; y < 9; y++)
+                {
+                    int value = game.list[i][y];
+                    if (value == 0)
+                    {
+                        <td width="25"></td>
+                    }
+                    else
+                    {
+                        <td width="25" align="center">
+                            @value
+                        </td>
+                    }
+                }
+            </tr>
+        }
+
+    </table>
+        }
+        <div class="editor-label">
+            @Html.LabelFor(model => model.x)
+        </div>
+        <div class="editor-field">
+            @{
+        List<SelectListItem> listItems = new List<SelectListItem>();
+        for (int i = 1; i <= 9; i++)
+        {
+            listItems.Add(new SelectListItem
+           {
+               Text = i.ToString(),
+               Value = i.ToString()
+           });
+        }
+            }
+            @Html.DropDownListFor(model => model.x, listItems, "-- X Position --")
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.y)
+        </div>
+        <div class="editor-field">
+            @{
+        listItems = new List<SelectListItem>();
+        for (int i = 1; i <= 9; i++)
+        {
+            listItems.Add(new SelectListItem
+           {
+               Text = i.ToString(),
+               Value = i.ToString()
+           });
+        }
+            }
+            @Html.DropDownListFor(model => model.y, listItems, "-- Y Position --")
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.GameMode)
+        </div>
+        <div class="editor-field">
+            @{
+        listItems = new List<SelectListItem>();
+        listItems.Add(new SelectListItem
+        {
+            Text = "Normal",
+            Value = "normal"
+        });
+        listItems.Add(new SelectListItem
+        {
+            Text = "Definitely not cheatmode",
+            Value = "cheat"
+        });
+            }
+            @Html.DropDownListFor(model => model.GameMode, listItems, "-- Gamemode --")
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Value)
+        </div>
+        <div class="editor-field">
+            @{
+        listItems = new List<SelectListItem>();
+        for (int i = 1; i <= 9; i++)
+        {
+            listItems.Add(new SelectListItem
+           {
+               Text = i.ToString(),
+               Value = i.ToString()
+           });
+        }
+            }
+            @Html.DropDownListFor(model => model.Value, listItems, "-- Value --")
+        </div>
+
+        <p>
+            <input type="submit" value="Play" />
+        </p>
+    </fieldset>
+}
+
